@@ -63,6 +63,23 @@ dados = [
     {"titulo": "O Visconde Que Me Amava", "mes": 8, "ano": 2023, "autor": "Julia Quinn", "genero": "Romance", "nota": 8, "modo": "Kindle", "tempo": "5 dias"},
     {"titulo": "Os Segredos de Colin Bridgerton", "mes": 9, "ano": 2023, "autor": "Julia Quinn", "genero": "Romance", "nota": 7, "modo": "Kindle", "tempo": "2 semanas"},
     {"titulo": "Um Perfeito Cavalheiro", "mes": 7, "ano": 2023, "autor": "Julia Quinn", "genero": "Romance", "nota": 10, "modo": "Kindle", "tempo": "2 dias"},
+    {"titulo": "Cartas ao Pai", "mes": 5, "ano": 2024, "autor": "Franz Kafka", "genero": "Diário", "nota": 10, "modo": "Kindle", "tempo": "5 dias"}, 
+    {"titulo": "Cartas para Milena", "mes": 8, "ano": 2024, "autor": "Franz Kafka", "genero": "Diário", "nota": 10, "modo": "Kindle", "tempo": " 1 semana"},
+    {"titulo": "A Hipótese do Amor", "mes": 12, "ano": 2024, "autor": "Ali Hazelwood", "genero": "Romance", "nota": 7, "modo": "Kindle", "tempo": " 3 semanas"},
+    {"titulo": "Como o Rei de Elfhame Aprendeu a Odiar Histórias", "mes": 6, "ano": 2024, "autor": "Holly Black", "genero": "Fantasia", "nota": 9, "modo": "Kindle", "tempo": "4 dias"},
+    {"titulo": "O Canto mais Escuro da Floresta", "mes": 9, "ano": 2024, "autor": "Holly Black", "genero": "Fantasia", "nota": 6, "modo": "Kindle", "tempo": "2 semanas"},
+    {"titulo": "Os Relógios", "mes": 1, "ano": 2026, "autor": "Agatha Christie", "genero": "Suspense", "nota": 8, "modo": "Kindle", "tempo": "2 semanas"},
+    {"titulo": "Convite para um Homicidio", "mes": 11, "ano": 2025, "autor": "Agatha Christie", "genero": "Suspense", "nota": 7, "modo": "Audio Livro", "tempo": "5 dias"},
+    {"titulo": "O Morro dos Ventos Uivantes", "mes": 10, "ano": 2024, "autor": "Emily Bronte", "genero": "Gótico", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"},
+    {"titulo": "Vidas Secas", "mes": 09, "ano": 2025, "autor": "Graciliano Ramos", "genero": "Realismo", "nota": 10, "modo": "Livro Físico/Kindle", "tempo": "1 semana"},
+    {"titulo": "Coroa da Meias-Noite", "mes": 11, "ano": 2024, "autor": "Sarah J. Maas.", "genero": "Fantasia", "nota": 7, "modo": "Kindle", "tempo": "2 semanas"},
+    {"titulo": "O Alienista", "mes": 01, "ano": 2026, "autor": "Machado de Assis", "genero": "Contos", "nota": 10, "modo": "Audio Livro", "tempo": "2 dias"},
+    {"titulo": "Orgulho e Preconceito", "mes": 01, "ano": 2026, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Audio Livro", "tempo": "1 dia"},
+    {"titulo": "Persuasão", "mes": 01, "ano": 2022, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Livro Físico", "tempo": " 4 semanas"},
+    {"titulo": "Razão e Sensibilidade", "mes": 04, "ano": 2022, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Livro Físico", "tempo": "1 mês"},
+    {"titulo": "A Dama Mais Apaixonada", "mes": 07, "ano": 2022, "autor": "Julia Quinn", "genero": "Romance", "nota": 4, "modo": "Livro Físico", "tempo": "2 meses"},
+    {"titulo": "A Quarta Asa", "mes": 07, "ano": 2025, "autor": "Rebecca Yarros", "genero": "Fantasia", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"},
+    {"titulo": "Anna Kariênina", "mes": 07, "ano": 2025, "autor": "Rebecca Yarros", "genero": "Fantasia", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"}
     {"titulo": "A Evolução de Calpúrnia Tate", "mes": 3, "ano": 2018, "autor": "Jacqueline Kelly", "genero": "Infantil", "nota": 8, "modo": "Livro Físico", "tempo": "4 meses"},
 ]
 
