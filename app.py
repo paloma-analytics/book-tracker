@@ -73,13 +73,13 @@ dados = [
     {"titulo": "O Morro dos Ventos Uivantes", "mes": 10, "ano": 2024, "autor": "Emily Bronte", "genero": "Gótico", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"},
     {"titulo": "Vidas Secas", "mes": 09, "ano": 2025, "autor": "Graciliano Ramos", "genero": "Realismo", "nota": 10, "modo": "Livro Físico/Kindle", "tempo": "1 semana"},
     {"titulo": "Coroa da Meias-Noite", "mes": 11, "ano": 2024, "autor": "Sarah J. Maas.", "genero": "Fantasia", "nota": 7, "modo": "Kindle", "tempo": "2 semanas"},
-    {"titulo": "O Alienista", "mes": 01, "ano": 2026, "autor": "Machado de Assis", "genero": "Contos", "nota": 10, "modo": "Audio Livro", "tempo": "2 dias"},
-    {"titulo": "Orgulho e Preconceito", "mes": 01, "ano": 2026, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Audio Livro", "tempo": "1 dia"},
-    {"titulo": "Persuasão", "mes": 01, "ano": 2022, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Livro Físico", "tempo": " 4 semanas"},
-    {"titulo": "Razão e Sensibilidade", "mes": 04, "ano": 2022, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Livro Físico", "tempo": "1 mês"},
-    {"titulo": "A Dama Mais Apaixonada", "mes": 07, "ano": 2022, "autor": "Julia Quinn", "genero": "Romance", "nota": 4, "modo": "Livro Físico", "tempo": "2 meses"},
-    {"titulo": "A Quarta Asa", "mes": 07, "ano": 2025, "autor": "Rebecca Yarros", "genero": "Fantasia", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"},
-    {"titulo": "Anna Kariênina", "mes": 0, "ano": 2024, "autor": "Liev Tolstói", "genero": "Romance", "nota": 9, "modo": "Livro Físico/Kindle", "tempo": "3 meses"}
+    {"titulo": "O Alienista", "mes": 1, "ano": 2026, "autor": "Machado de Assis", "genero": "Contos", "nota": 10, "modo": "Audio Livro", "tempo": "2 dias"},
+    {"titulo": "Orgulho e Preconceito", "mes": 1, "ano": 2026, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Audio Livro", "tempo": "1 dia"},
+    {"titulo": "Persuasão", "mes": 1, "ano": 2022, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Livro Físico", "tempo": " 4 semanas"},
+    {"titulo": "Razão e Sensibilidade", "mes": 4, "ano": 2022, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Livro Físico", "tempo": "1 mês"},
+    {"titulo": "A Dama Mais Apaixonada", "mes": 7, "ano": 2022, "autor": "Julia Quinn", "genero": "Romance", "nota": 4, "modo": "Livro Físico", "tempo": "2 meses"},
+    {"titulo": "A Quarta Asa", "mes": 7, "ano": 2025, "autor": "Rebecca Yarros", "genero": "Fantasia", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"},
+    {"titulo": "Anna Kariênina", "mes": 1, "ano": 2024, "autor": "Liev Tolstói", "genero": "Romance", "nota": 9, "modo": "Livro Físico/Kindle", "tempo": "3 meses"}
     {"titulo": "A Evolução de Calpúrnia Tate", "mes": 3, "ano": 2018, "autor": "Jacqueline Kelly", "genero": "Infantil", "nota": 8, "modo": "Livro Físico", "tempo": "4 meses"},
 ]
 
