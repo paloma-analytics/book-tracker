@@ -79,7 +79,7 @@ dados = [
     {"titulo": "Razão e Sensibilidade", "mes": 04, "ano": 2022, "autor": "Jane Austen", "genero": "Romance", "nota": 10, "modo": "Livro Físico", "tempo": "1 mês"},
     {"titulo": "A Dama Mais Apaixonada", "mes": 07, "ano": 2022, "autor": "Julia Quinn", "genero": "Romance", "nota": 4, "modo": "Livro Físico", "tempo": "2 meses"},
     {"titulo": "A Quarta Asa", "mes": 07, "ano": 2025, "autor": "Rebecca Yarros", "genero": "Fantasia", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"},
-    {"titulo": "Anna Kariênina", "mes": 07, "ano": 2025, "autor": "Rebecca Yarros", "genero": "Fantasia", "nota": 8, "modo": "Livro Físico/Kindle", "tempo": "2 semanas"}
+    {"titulo": "Anna Kariênina", "mes": 0, "ano": 2024, "autor": "Liev Tolstói", "genero": "Romance", "nota": 9, "modo": "Livro Físico/Kindle", "tempo": "3 meses"}
     {"titulo": "A Evolução de Calpúrnia Tate", "mes": 3, "ano": 2018, "autor": "Jacqueline Kelly", "genero": "Infantil", "nota": 8, "modo": "Livro Físico", "tempo": "4 meses"},
 ]
 
