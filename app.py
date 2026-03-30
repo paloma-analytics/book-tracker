@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import unicodedata
 import re
 import requests
+import io
 
 
 def normalizar(texto):
@@ -53,25 +54,67 @@ def perfil_leitora_dinamico(genero, autor):
         "nao ficcao": "Você é uma leitora curiosa 🧠 — busca conhecimento real e aprender com histórias verdadeiras.",
         "literatura brasileira": "Você é uma leitora brasileira 🌿 — valoriza histórias que refletem nossa cultura e realidade.",
         "romance gotico": "Você é uma leitora sombria e apaixonada 🌹 — ama histórias que misturam amor e obscuridade.",
+        "realismo": "Você é uma leitora realista 🌎 — aprecia histórias que refletem a vida com profundidade e verdade.",
+        "cronicas": "Você é uma leitora observadora 🗞️ — gosta de narrativas que capturam momentos e a essência do cotidiano.",
+        "poesia": "Você é uma leitora sensível 🌸 — se conecta com a beleza das palavras e a profundidade dos sentimentos.",
+        "sociologia": "Você é uma leitora pensadora 🔬 — gosta de entender como a sociedade funciona e questionar estruturas.",
+        "ficcao literaria": "Você é uma leitora literária 📜 — aprecia narrativas densas, bem escritas e cheias de significado.",
     }
     genero_norm = normalizar(genero)
-
- 
     frase = perfis.get(genero_norm)
-
-   
     if not frase:
         for chave, valor in perfis.items():
             if chave in genero_norm or genero_norm in chave:
                 frase = valor
                 break
-
-
     if not frase:
         frase = f"Você é uma leitora de {genero} 📚 — explora universos únicos e continua expandindo seu repertório."
-
     return frase + f"\n\n✍️ Sua autora favorita é **{autor}**."
 
+def gerar_planilha_exemplo():
+    dados_exemplo = [
+        {"Titulo": "O Principe Cruel", "Mês": 2, "Ano": 2024, "Autor": "Holly Black", "Genero": "Fantasia", "Nota": 10, "Modo de Leitura": "Kindle", "Motivo de Leitura": "Hype", "Quantidade de Paginas": 336, "Categoria": "Fantasia", "tempo": "1 mês"},
+        {"Titulo": "A Empregada", "Mês": 1, "Ano": 2025, "Autor": "Freida McFadden", "Genero": "Suspense", "Nota": 10, "Modo de Leitura": "Kindle", "Motivo de Leitura": "Hype", "Quantidade de Paginas": 304, "Categoria": "Suspense/Thriller", "tempo": "5 dias"},
+        {"Titulo": "A Metamorfose", "Mês": 5, "Ano": 2024, "Autor": "Franz Kafka", "Genero": "Existencialismo", "Nota": 10, "Modo de Leitura": "Kindle", "Motivo de Leitura": "Curiosidade", "Quantidade de Paginas": 96, "Categoria": "Clássico", "tempo": "2 semanas"},
+        {"Titulo": "Crime e Castigo", "Mês": 1, "Ano": 2025, "Autor": "Fiódor Dostoiévski", "Genero": "Existencialismo", "Nota": 9, "Modo de Leitura": "Kindle", "Motivo de Leitura": "Indicação", "Quantidade de Paginas": 592, "Categoria": "Clássico", "tempo": "6 meses"},
+        {"Titulo": "Corte de Névoa e Fúria", "Mês": 12, "Ano": 2025, "Autor": "Sarah J. Mass", "Genero": "Fantasia", "Nota": 9, "Modo de Leitura": "Audio Livro", "Motivo de Leitura": "Hype", "Quantidade de Paginas": 656, "Categoria": "Fantasia", "tempo": "3 semanas"},
+        {"Titulo": "Uma Vida Pequena", "Mês": 8, "Ano": 2025, "Autor": "Hanya Yanagihara", "Genero": "Romance", "Nota": 10, "Modo de Leitura": "Livro Fisíco", "Motivo de Leitura": "Hype", "Quantidade de Paginas": 720, "Categoria": "Ficção contemporânea", "tempo": "2 meses"},
+        {"Titulo": "O Alquimista", "Mês": 1, "Ano": 2026, "Autor": "Paulo Coelho", "Genero": "Romance", "Nota": 10, "Modo de Leitura": "Audio Livro", "Motivo de Leitura": "Curiosidade", "Quantidade de Paginas": 208, "Categoria": "Ficção contemporânea", "tempo": "4 dias"},
+        {"Titulo": "A Cachorra", "Mês": 2, "Ano": 2026, "Autor": "Pilar Quintana", "Genero": "Existencialismo", "Nota": 10, "Modo de Leitura": "Livro Fisíco", "Motivo de Leitura": "Indicação", "Quantidade de Paginas": 168, "Categoria": "Ficção contemporânea", "tempo": "5 dias"},
+        {"Titulo": "A Hipótese do Amor", "Mês": 2, "Ano": 2025, "Autor": "Ali Hazelwood", "Genero": "Romance", "Nota": 7, "Modo de Leitura": "Kindle", "Motivo de Leitura": "Hype", "Quantidade de Paginas": 336, "Categoria": "Romance", "tempo": "1 mês"},
+        {"Titulo": "Noites Brancas", "Mês": 10, "Ano": 2024, "Autor": "Fiódor Dostoiévski", "Genero": "Romance", "Nota": 8, "Modo de Leitura": "Kindle", "Motivo de Leitura": "Hype", "Quantidade de Paginas": 96, "Categoria": "Clássico", "tempo": "1 dia"},
+        {"Titulo": "Orgulho e Preconceito", "Mês": 10, "Ano": 2023, "Autor": "Jane Austen", "Genero": "Romance", "Nota": 10, "Modo de Leitura": "Kindle", "Motivo de Leitura": "Indicação", "Quantidade de Paginas": 424, "Categoria": "Clássico", "tempo": "2 semanas"},
+        {"Titulo": "A Professora", "Mês": 4, "Ano": 2026, "Autor": "Freida McFadden", "Genero": "Suspense", "Nota": 0, "Modo de Leitura": "Não Lido", "Motivo de Leitura": "Hype", "Quantidade de Paginas": 336, "Categoria": "Suspense/Thriller", "tempo": None},
+        {"Titulo": "Grande Sertão", "Mês": 0, "Ano": 2026, "Autor": "João Guimarães Rosa", "Genero": "Romance", "Nota": 0, "Modo de Leitura": "Não Lido", "Motivo de Leitura": "Indicação", "Quantidade de Paginas": 624, "Categoria": "Clássico", "tempo": None},
+        {"Titulo": "Os Irmãos Karamazov", "Mês": 0, "Ano": 2026, "Autor": "Fiódor Dostoiévski", "Genero": "Romance", "Nota": 0, "Modo de Leitura": "Não Lido", "Motivo de Leitura": "Curiosidade", "Quantidade de Paginas": 824, "Categoria": "Clássico", "tempo": None},
+    ]
+    df_exemplo = pd.DataFrame(dados_exemplo)
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine="openpyxl") as writer:
+        df_exemplo.to_excel(writer, index=False, sheet_name="Livros")
+    output.seek(0)
+    return output, df_exemplo
+
+RECOMENDACOES = {
+    "fantasia": ["O Nome do Vento — Patrick Rothfuss", "O Hobbit — J.R.R. Tolkien", "A Guerra das Papoulas — Rebecca F. Kuang", "Cidade dos Ossos — Cassandra Clare", "Eragon — Christopher Paolini", "Neverwhere — Neil Gaiman", "O Ladrão de Raios — Rick Riordan", "Filha da Floresta — Juliet Marillier", "A Rainha Vermelha — Victoria Aveyard", "Flores para Algernon — Daniel Keyes", "Senhor das Moscas — William Golding", "O Mago — Trudi Canavan", "Sabriel — Garth Nix", "Uprooted — Naomi Novik", "The Cruel Prince — Holly Black"],
+    "suspense": ["Garota Exemplar — Gillian Flynn", "A Menina no Trem — Paula Hawkins", "Big Little Lies — Liane Moriarty", "A Mulher na Janela — A.J. Finn", "O Silêncio dos Inocentes — Thomas Harris", "Desaparecida — Gillian Flynn", "Tudo Isso é Passado — Harlan Coben", "A Paciente Silenciosa — Alex Michaelides", "Os Suspeitos — Agatha Christie", "E Não Sobrou Nenhum — Agatha Christie", "A Testemunha — Harlan Coben", "O Homem do Castelo Alto — Philip K. Dick", "Rebecca — Daphne du Maurier", "In the Woods — Tana French", "O Estranho — Harlan Coben"],
+    "romance": ["Orgulho e Preconceito — Jane Austen", "Normal People — Sally Rooney", "O Casamento de Conveniência — Beth O'Leary", "A Proposta — Kennedy Ryan", "Me Chame pelo Seu Nome — André Aciman", "Razão e Sensibilidade — Jane Austen", "Pessoas Normais — Sally Rooney", "Conversas com Amigos — Sally Rooney", "Outlander — Diana Gabaldon", "A Escolha — Nicholas Sparks", "Um Homem Chamado Ove — Fredrik Backman", "O Elo Perdido — Jojo Moyes", "Antes de Você — Jojo Moyes", "Eleanor Oliphant Está Completamente Bem — Gail Honeyman", "O Amor nos Tempos do Cólera — Gabriel García Márquez"],
+    "existencialismo": ["O Estrangeiro — Albert Camus", "A Náusea — Jean-Paul Sartre", "O Processo — Franz Kafka", "Cartas a um Jovem Poeta — Rainer Maria Rilke", "O Mito de Sísifo — Albert Camus", "Sidarta — Hermann Hesse", "O Lobo da Estepe — Hermann Hesse", "Assim Falou Zaratustra — Friedrich Nietzsche", "A Morte de Ivan Ilitch — Liev Tolstói", "O Declínio de um Homem — Osamu Dazai", "Noite — Elie Wiesel", "As Horas — Michael Cunningham", "Steppenwolf — Hermann Hesse", "O Caminho de Swann — Marcel Proust", "Demian — Hermann Hesse"],
+    "gotico": ["Drácula — Bram Stoker", "Frankenstein — Mary Shelley", "O Retrato de Dorian Gray — Oscar Wilde", "Rebecca — Daphne du Maurier", "A Volta do Parafuso — Henry James", "O Fantasma da Ópera — Gaston Leroux", "Jane Eyre — Charlotte Brontë", "O Morro dos Ventos Uivantes — Emily Brontë", "O Caso de Charles Dexter Ward — H.P. Lovecraft", "Nos Bastidores do Mal — Shirley Jackson", "A Queda da Casa Usher — Edgar Allan Poe", "Carmilla — Sheridan Le Fanu", "O Médico e o Monstro — Robert Louis Stevenson", "A Ilha do Doutor Moreau — H.G. Wells", "Picnic no Pendurado — Joan Lindsay"],
+    "distopico": ["Admirável Mundo Novo — Aldous Huxley", "Fahrenheit 451 — Ray Bradbury", "O Conto da Aia — Margaret Atwood", "Nós — Yevgeny Zamyatin", "A Estrada — Cormac McCarthy", "Station Eleven — Emily St. John Mandel", "Os Testamentos — Margaret Atwood", "O Poder — Naomi Alderman", "Jogos Vorazes — Suzanne Collins", "Divergente — Veronica Roth", "O Homem do Castelo Alto — Philip K. Dick", "A Zona Morta — Stephen King", "Parable of the Sower — Octavia Butler", "O Conto de Dois Futuros — Kim Stanley Robinson"],
+    "classico": ["Dom Quixote — Miguel de Cervantes", "Anna Kariênina — Liev Tolstói", "Guerra e Paz — Liev Tolstói", "Madame Bovary — Gustave Flaubert", "O Grande Gatsby — F. Scott Fitzgerald", "Em Busca do Tempo Perdido — Marcel Proust", "Ulisses — James Joyce", "O Som e a Fúria — William Faulkner", "Moby Dick — Herman Melville", "As Vinhas da Ira — John Steinbeck", "O Sol Também se Levanta — Ernest Hemingway", "A Letra Escarlate — Nathaniel Hawthorne", "Middlemarch — George Eliot", "Vanity Fair — William Thackeray"],
+    "literatura brasileira": ["Dom Casmurro — Machado de Assis", "Vidas Secas — Graciliano Ramos", "Grande Sertão: Veredas — João Guimarães Rosa", "A Hora da Estrela — Clarice Lispector", "Capitães da Areia — Jorge Amado", "O Cortiço — Aluísio Azevedo", "Memórias Póstumas de Brás Cubas — Machado de Assis", "Laços de Família — Clarice Lispector", "Quarto de Despejo — Carolina Maria de Jesus", "O Quinze — Rachel de Queiroz", "Menino de Engenho — José Lins do Rego", "Gabriela, Cravo e Canela — Jorge Amado", "Um Defeito de Cor — Ana Maria Gonçalves", "Torto Arado — Itamar Vieira Junior", "Bom Criolo — Adolfo Caminha"],
+    "contos": ["A Hora da Estrela — Clarice Lispector", "O Aleph — Jorge Luis Borges", "Ficciones — Jorge Luis Borges", "Homens Sem Mulheres — Haruki Murakami", "Os Mortos — James Joyce", "Dublinenses — James Joyce", "Noite — Clarice Lispector", "Depois do Terremoto — Haruki Murakami", "O Jardim de Veredas que se Bifurcam — Jorge Luis Borges", "Os Contos de Sherlock Holmes — Arthur Conan Doyle", "Todos os Fogos o Fogo — Julio Cortázar", "A Conferência de Negócios — Anton Tchekhov"],
+    "young adult": ["Harry Potter — J.K. Rowling", "Percy Jackson — Rick Riordan", "O Labirinto — James Dashner", "Divergente — Veronica Roth", "A Culpa é das Estrelas — John Green", "Cidade de Ossos — Cassandra Clare", "Feyre e a Corte das Rosas — Sarah J. Maas", "Caçadores de Sombras — Cassandra Clare", "An Ember in the Ashes — Sabaa Tahir", "Scythe — Neal Shusterman", "The Cruel Prince — Holly Black", "The Poppy War — Rebecca F. Kuang", "Six of Crows — Leigh Bardugo", "Children of Blood and Bone — Tomi Adeyemi"],
+    "misterio": ["E Não Sobrou Nenhum — Agatha Christie", "O Assassinato no Expresso do Oriente — Agatha Christie", "Morte no Nilo — Agatha Christie", "O Cão dos Baskervilles — Arthur Conan Doyle", "A Liga dos Carecas — Arthur Conan Doyle", "O Nome da Rosa — Umberto Eco", "A Sombra do Vento — Carlos Ruiz Zafón", "Em Busca da Criança Perdida — Elena Ferrante", "A Mulher que Desapareceu — Agatha Christie", "O Caso dos Dez Negrinhos — Agatha Christie"],
+    "nao ficcao": ["Sapiens — Yuval Noah Harari", "O Poder do Hábito — Charles Duhigg", "Thinking Fast and Slow — Daniel Kahneman", "Educated — Tara Westover", "O Diário de Anne Frank — Anne Frank", "A Longa Jornada até a Liberdade — Nelson Mandela", "Becoming — Michelle Obama", "O Mundo de Sofia — Jostein Gaarder", "Surely You're Joking Mr. Feynman — Richard Feynman", "A Revolução dos Bichos — George Orwell"],
+    "romance gotico": ["Rebecca — Daphne du Maurier", "Jane Eyre — Charlotte Brontë", "O Morro dos Ventos Uivantes — Emily Brontë", "Drácula — Bram Stoker", "A Virada do Parafuso — Henry James", "Carmilla — Sheridan Le Fanu", "O Fantasma da Ópera — Gaston Leroux", "Wuthering Heights — Emily Brontë", "Picnic no Pendurado — Joan Lindsay"],
+    "realismo": ["Vidas Secas — Graciliano Ramos", "O Cortiço — Aluísio Azevedo", "Madame Bovary — Gustave Flaubert", "Anna Kariênina — Liev Tolstói", "Dom Casmurro — Machado de Assis", "Memórias Póstumas de Brás Cubas — Machado de Assis", "As Vinhas da Ira — John Steinbeck", "Middlemarch — George Eliot", "O Quinze — Rachel de Queiroz", "Capitães da Areia — Jorge Amado"],
+    "sociologia": ["Sapiens — Yuval Noah Harari", "O Segundo Sexo — Simone de Beauvoir", "A Origem da Família — Friedrich Engels", "Vigiar e Punir — Michel Foucault", "A Distinção — Pierre Bourdieu", "Raízes do Brasil — Sérgio Buarque de Holanda", "Casa Grande e Senzala — Gilberto Freyre", "O Povo Brasileiro — Darcy Ribeiro"],
+    "poesia": ["Drummond — Carlos Drummond de Andrade", "Morte e Vida Severina — João Cabral de Melo Neto", "Poemas — Fernando Pessoa", "Odes — Pablo Neruda", "Leaves of Grass — Walt Whitman", "Poemas da Recordação — Conceição Evaristo", "Toda Poesia — Paulo Leminski", "Antologia Poética — Vinicius de Moraes"],
+    "cronicas": ["A Alma Encantadora das Ruas — João do Rio", "Para Gostar de Ler — vários autores", "Crônicas — Fernando Sabino", "A Vida como Ela É — Nelson Rodrigues", "Beijos e Abraços — Rubem Braga", "O Homem Nu — Fernando Sabino"],
+    "ficcao literaria": ["O Ano do Pensamento Mágico — Joan Didion", "As Correções — Jonathan Franzen", "A Estrada — Cormac McCarthy", "Beloved — Toni Morrison", "Americanah — Chimamanda Ngozi Adichie", "Uma Vida Pequena — Hanya Yanagihara", "Normal People — Sally Rooney", "A Balada do Pássaro e da Serpente — Suzanne Collins"],
+}
 
 
 st.markdown("""
@@ -184,9 +227,7 @@ hr {
 """, unsafe_allow_html=True)
 
 
-
 st.set_page_config(page_title="Book Tracker", page_icon="🌸", layout="wide")
-
 
 
 st.markdown("# 🌸 Book Tracker")
@@ -205,41 +246,61 @@ Faça upload da sua planilha e em segundos você terá:
 st.divider()
 
 
-
 with st.expander("🌸 Como usar — clique aqui para ver o formato da planilha"):
     st.markdown("""
     Sua planilha pode ter **qualquer combinação dessas colunas**:
 
-    | titulo | mes | ano | autor | genero | nota | modo | tempo | motivo de leitura | quantidade de paginas | categoria |
+    | Titulo | Mês | Ano | Autor | Genero | Nota | Modo de Leitura | Motivo de Leitura | Quantidade de Paginas | Categoria | tempo |
     |---|---|---|---|---|---|---|---|---|---|---|
 
     **Regras importantes:**
     - O arquivo deve ser **.xlsx** ou **.csv**
-    - A coluna **mes** deve ser número sem zero na frente (ex: 9, não 09)
-    - A coluna **nota** deve ser número (ex: 8 ou 7.5)
-    - Livros sem nota ou com nota 0 serao classificados como **Leituras futuras**
-    - Novas colunas opcionais: **motivo de leitura**, **quantidade de paginas**, **categoria**
+    - A coluna **Mês** deve ser número sem zero na frente (ex: 9, não 09)
+    - A coluna **Nota** deve ser número (ex: 8 ou 7.5)
+    - Livros sem nota ou com nota 0 serão classificados como **Leituras futuras**
+    - Colunas opcionais: **Motivo de Leitura**, **Quantidade de Paginas**, **Categoria**
     """)
 
+    planilha_bytes, df_exemplo_preview = gerar_planilha_exemplo()
+
+    col_exp1, col_exp2 = st.columns(2)
+
+    with col_exp1:
+        st.download_button(
+            label="📥 Baixar planilha de exemplo",
+            data=planilha_bytes,
+            file_name="planilha_exemplo_book_tracker.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+
+    with col_exp2:
+        if st.button("🌸 Carregar planilha de exemplo no app"):
+            st.session_state["usar_exemplo"] = True
 
 
 arquivo = st.file_uploader("🌸 Faça upload da sua planilha aqui", type=["xlsx", "csv"])
 
-if arquivo is not None:
+usar_exemplo = st.session_state.get("usar_exemplo", False)
 
-    if arquivo.name.endswith(".csv"):
-        df = pd.read_csv(arquivo)
+if arquivo is not None or usar_exemplo:
+
+    if usar_exemplo and arquivo is None:
+        _, df = gerar_planilha_exemplo()
+        st.info("🌸 Usando a planilha de exemplo! Faça upload da sua para ver suas análises personalizadas.")
     else:
-        df = pd.read_excel(arquivo)
+        st.session_state["usar_exemplo"] = False
+        if arquivo.name.endswith(".csv"):
+            df = pd.read_csv(arquivo)
+        else:
+            df = pd.read_excel(arquivo)
 
     df = normalizar_colunas(df)
 
- 
+
     if "titulo" not in df.columns:
         st.error("🌸 Sua planilha precisa ter pelo menos a coluna: titulo")
         st.stop()
 
-   
     for col in ["nota", "ano", "mes", "quantidade de paginas"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
@@ -248,7 +309,6 @@ if arquivo is not None:
         df["tempo_dias"] = df["tempo"].apply(converter_tempo)
     else:
         df["tempo_dias"] = None
-
 
     if "nota" in df.columns:
         df["status"] = df["nota"].apply(
@@ -261,7 +321,6 @@ if arquivo is not None:
 
     aba1, aba2, aba3 = st.tabs(["🌸 Biblioteca", "📊 Estatísticas", "🔮 Recomendador"])
 
-  
 
     with aba1:
 
@@ -303,7 +362,7 @@ if arquivo is not None:
         if "nota" in df.columns:
             df_filtrado = df_filtrado.sort_values("nota", ascending=False)
 
-        colunas_exibir = [c for c in ["titulo", "autor", "genero", "nota", "modo", "tempo", "ano", "status", "categoria", "motivo de leitura", "quantidade de paginas"] if c in df_filtrado.columns]
+        colunas_exibir = [c for c in ["titulo", "autor", "genero", "nota", "modo de leitura", "tempo", "ano", "status", "categoria", "motivo de leitura", "quantidade de paginas"] if c in df_filtrado.columns]
 
         st.dataframe(
             df_filtrado[colunas_exibir],
@@ -313,15 +372,12 @@ if arquivo is not None:
 
         st.caption(f"🌸 Mostrando {len(df_filtrado)} livros")
 
- 
-
     with aba2:
 
         st.subheader("📊 Seu perfil de leitora")
 
         df_lidos = df[df["status"] == "Lido"].copy()
 
- 
         m1, m2, m3 = st.columns(3)
         m4, m5, m6 = st.columns(3)
 
@@ -346,7 +402,6 @@ if arquivo is not None:
             autor_top = "—"
             m4.metric("✍️ Autor(a) mais lido", "—")
 
-       
         if "mes" in df.columns and "ano" in df.columns and len(df_lidos) > 0:
             meses_com_leitura = df_lidos.dropna(subset=["mes", "ano"]).groupby(["ano", "mes"]).size().reset_index()
             qtd_meses = len(meses_com_leitura)
@@ -355,9 +410,9 @@ if arquivo is not None:
         else:
             m5.metric("📅 Média de livros por mês", "—")
 
-      
         if "quantidade de paginas" in df.columns and "mes" in df.columns and "ano" in df.columns:
             df_paginas = df_lidos.dropna(subset=["quantidade de paginas", "mes", "ano"]).copy()
+            df_paginas = df_paginas[df_paginas["mes"] > 0]
             if len(df_paginas) > 0:
                 df_paginas["dias_mes"] = df_paginas.apply(
                     lambda r: dias_no_mes(r["mes"], r["ano"]), axis=1
@@ -369,7 +424,6 @@ if arquivo is not None:
             else:
                 m6.metric("📖 Média de páginas por dia", "—")
         else:
-           
             if genero_top != "—" and autor_top != "—":
                 frase_perfil = perfil_leitora_dinamico(genero_top, autor_top)
                 with m6:
@@ -380,7 +434,6 @@ if arquivo is not None:
                     </div>
                     """, unsafe_allow_html=True)
 
-       
         if "quantidade de paginas" in df.columns and genero_top != "—" and autor_top != "—":
             frase_perfil = perfil_leitora_dinamico(genero_top, autor_top)
             st.markdown(f"""
@@ -392,12 +445,9 @@ if arquivo is not None:
 
         st.divider()
 
-     
         if "nota" in df.columns and len(df_lidos) > 0:
             st.markdown("**🏆 Destaques de leitura**")
-
             d1, d2 = st.columns(2)
-
             df_dest = df_lidos.dropna(subset=["nota"]).copy()
             if "ano" in df.columns and "mes" in df.columns:
                 df_dest = df_dest.sort_values(["ano", "mes"], ascending=[False, False])
@@ -434,7 +484,7 @@ if arquivo is not None:
 
             st.divider()
 
-  
+
         if "genero" in df.columns:
             g1, g2 = st.columns(2)
 
@@ -465,7 +515,6 @@ if arquivo is not None:
                     plt.tight_layout()
                     st.pyplot(fig2)
 
-       
         g3, g4 = st.columns(2)
 
         with g3:
@@ -483,9 +532,10 @@ if arquivo is not None:
                 st.pyplot(fig3)
 
         with g4:
-            if "modo" in df.columns:
+            col_modo = "modo de leitura" if "modo de leitura" in df.columns else "modo" if "modo" in df.columns else None
+            if col_modo:
                 st.markdown("**💝 Modo de leitura favorito**")
-                modos = df_lidos["modo"].value_counts()
+                modos = df_lidos[col_modo].value_counts()
                 fig4, ax4 = plt.subplots(figsize=(6, 4))
                 fig4.patch.set_facecolor("#fff5f8")
                 modos.plot(kind="pie", autopct="%1.1f%%", colors=["#ffaacb", "#c87d87", "#ec9c9d", "#f0c4cb", "#ffd6e7"], ax=ax4)
@@ -493,11 +543,11 @@ if arquivo is not None:
                 plt.tight_layout()
                 st.pyplot(fig4)
 
-      
-        if "motivo de leitura" in df.columns:
+        col_motivo = "motivo de leitura" if "motivo de leitura" in df.columns else None
+        if col_motivo:
             st.divider()
             st.markdown("**💡 Motivo de leitura**")
-            motivos = df_lidos["motivo de leitura"].value_counts()
+            motivos = df_lidos[col_motivo].value_counts()
             fig_mot, ax_mot = plt.subplots(figsize=(8, 4))
             fig_mot.patch.set_facecolor("#fff5f8")
             ax_mot.set_facecolor("#fff5f8")
@@ -508,49 +558,38 @@ if arquivo is not None:
             plt.tight_layout()
             st.pyplot(fig_mot)
 
-      
         if "mes" in df.columns and "ano" in df.columns:
             st.divider()
             st.markdown("**📅 Livros lidos por mês**")
-
             anos_disponiveis = sorted(df_lidos["ano"].dropna().unique().astype(int).tolist(), reverse=True)
-
             if anos_disponiveis:
                 ano_selecionado = st.selectbox("Selecione o ano", anos_disponiveis)
                 df_ano = df_lidos[df_lidos["ano"] == ano_selecionado]
                 livros_por_mes = df_ano.groupby("mes").size().reindex(range(1, 13), fill_value=0)
                 nomes_meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
                 livros_por_mes.index = nomes_meses
-
                 fig5, ax5 = plt.subplots(figsize=(10, 4))
                 fig5.patch.set_facecolor("#fff5f8")
                 ax5.set_facecolor("#fff5f8")
                 bars = ax5.bar(livros_por_mes.index, livros_por_mes.values, color="#ffaacb")
-
                 for bar in bars:
                     height = bar.get_height()
                     if height > 0:
                         ax5.text(bar.get_x() + bar.get_width() / 2., height,
                                 f'{int(height)}', ha='center', va='bottom', fontweight='bold', color="#d45c7a")
-
                 ax5.set_xlabel("")
                 ax5.set_ylabel("Livros lidos")
                 ax5.set_title(f"Leituras mês a mês em {ano_selecionado}", color="#d45c7a", fontweight="bold")
                 plt.tight_layout()
                 st.pyplot(fig5)
 
-      
         if "mes" in df.columns and "ano" in df.columns:
             st.divider()
             st.markdown("**Meta de leitura**")
-
             col_meta1, col_meta2 = st.columns(2)
-
             nomes_meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"]
-
             with col_meta1:
                 tipo_meta = st.radio("Tipo de meta", ["Anual", "Mensal"])
-
             with col_meta2:
                 meta = st.number_input("Quantos livros é sua meta?", min_value=1, max_value=500, value=20)
 
@@ -562,14 +601,11 @@ if arquivo is not None:
                 livros_por_mes_meta = df_meta.groupby("mes").size().reindex(range(1, 13), fill_value=0)
                 livros_por_mes_meta.index = nomes_meses
                 lidos_total = int(livros_por_mes_meta.sum())
-
-              
                 import calendar
                 dias_por_mes = [calendar.monthrange(ano_meta, m)[1] for m in range(1, 13)]
                 total_dias_ano = sum(dias_por_mes)
                 linha_meta = [(meta * d / total_dias_ano) for d in dias_por_mes]
                 label_meta = f"Meta anual {ano_meta} — {lidos_total} de {meta} livros ({min(lidos_total/meta*100, 100):.0f}%)"
-
             else:
                 ano_meta = st.selectbox("Ano", anos_disponiveis_meta, key="ano_meta2")
                 mes_meta = st.selectbox("Mês", list(range(1, 13)), format_func=lambda x: nomes_meses[x-1])
@@ -582,18 +618,14 @@ if arquivo is not None:
             fig6, ax6 = plt.subplots(figsize=(10, 4))
             fig6.patch.set_facecolor("#fff5f8")
             ax6.set_facecolor("#fff5f8")
-
             bars6 = ax6.bar(livros_por_mes_meta.index, livros_por_mes_meta.values, color="#ffaacb", label="Livros lidos", zorder=2)
-
             ax6.plot(livros_por_mes_meta.index, linha_meta, color="#d45c7a", linewidth=2.5,
                     linestyle="--", marker="o", markersize=5, label="Meta", zorder=3)
-
             for bar in bars6:
                 height = bar.get_height()
                 if height > 0:
                     ax6.text(bar.get_x() + bar.get_width() / 2., height,
                             f'{int(height)}', ha='center', va='bottom', fontweight='bold', color="#d45c7a")
-
             ax6.set_xlabel("")
             ax6.set_ylabel("Livros")
             ax6.set_title(label_meta, color="#d45c7a", fontweight="bold")
@@ -602,68 +634,67 @@ if arquivo is not None:
             plt.tight_layout()
             st.pyplot(fig6)
 
- 
-
     with aba3:
 
         st.subheader("🔮 Recomendador de leitura")
-        st.markdown("Escolha um gênero **ou** uma categoria e descubra novas leituras que você ainda não leu! 🌸")
+        st.markdown("Escolha um gênero e descubra novas leituras que você ainda não leu! 🌸")
 
-        tipo_busca = st.radio("Buscar por:", ["Gênero", "Categoria"], horizontal=True)
-
-        if tipo_busca == "Gênero":
-            if "genero" in df.columns:
-                opcoes = sorted(df["genero"].dropna().unique().tolist())
-            else:
-                opcoes = ["Fantasia", "Suspense", "Romance", "Existencialismo"]
-            termo_busca = st.selectbox("🌸 Escolha um gênero", opcoes)
-
+        if "genero" in df.columns:
+            opcoes_genero = sorted(df["genero"].dropna().unique().tolist())
         else:
-            categorias_disponiveis = [
-                "Ficcao cientifica", "Classico", "Fantasia", "Ficcao contemporanea",
-                "Romance", "Suspense", "Young Adult", "Diario",
-                "Literatura brasileira", "Misterio", "Romance Gotico", "Nao ficcao"
-            ]
-            if "categoria" in df.columns:
-                cats_planilha = df["categoria"].dropna().unique().tolist()
-                todas_cats = sorted(list(set(categorias_disponiveis + cats_planilha)))
-            else:
-                todas_cats = sorted(categorias_disponiveis)
-            termo_busca = st.selectbox("🌸 Escolha uma categoria", todas_cats)
+            opcoes_genero = sorted(RECOMENDACOES.keys())
+
+        genero_rec = st.selectbox("🌸 Escolha um gênero", opcoes_genero)
 
         if st.button("🌸 Recomendar"):
 
             ja_lidos = df["titulo"].str.lower().str.strip().tolist()
+            genero_norm = normalizar(genero_rec)
 
-            with st.spinner("🌸 Buscando sugestões para você..."):
+            sugestoes_curadas = RECOMENDACOES.get(genero_norm, [])
 
-                try:
-                    termo_url = normalizar(termo_busca).replace(" ", "_")
-                    url = f"https://openlibrary.org/subjects/{termo_url}.json?limit=30"
-                    resposta = requests.get(url, timeout=10)
-                    dados_api = resposta.json()
-                    livros_api = dados_api.get("works", [])
+            if not sugestoes_curadas:
+                for chave, lista in RECOMENDACOES.items():
+                    if chave in genero_norm or genero_norm in chave:
+                        sugestoes_curadas = lista
+                        break
 
-                    novos = []
-                    for livro in livros_api:
-                        titulo = livro.get("title", "")
-                        autores = livro.get("authors", [])
-                        autor = autores[0].get("name", "Autor desconhecido") if autores else "Autor desconhecido"
-                        if titulo.lower().strip() not in ja_lidos:
-                            novos.append(f"{titulo} — {autor}")
+            novos_curados = [s for s in sugestoes_curadas if s.split(" — ")[0].lower().strip() not in ja_lidos]
 
-                    if not novos:
-                        st.info(f"🌸 Não encontramos sugestões novas para **{termo_busca}** agora. Tente outro!")
-                    else:
-                        st.markdown(f"**📚 Sugestões de {termo_busca} para você explorar:**")
-                        st.markdown("")
-                        for livro in novos[:10]:
-                            st.markdown(f"🌸 {livro}")
-                        st.markdown("")
-                        st.caption("Sugestões buscadas automaticamente — livros que ainda não estão na sua biblioteca!")
+            if novos_curados:
+                st.markdown(f"**📚 Sugestões de {genero_rec} para você explorar:**")
+                st.markdown("")
+                for livro in novos_curados:
+                    st.markdown(f"🌸 {livro}")
+                st.markdown("")
+                st.caption("Sugestões cuidadosamente selecionadas — livros que ainda não estão na sua biblioteca!")
 
-                except Exception as e:
-                    st.warning("🌸 Não conseguimos buscar sugestões agora. Verifique sua conexão e tente novamente!")
+            else:
+                with st.spinner("🌸 Buscando mais sugestões para você..."):
+                    try:
+                        termo_url = genero_norm.replace(" ", "_")
+                        url = f"https://openlibrary.org/subjects/{termo_url}.json?limit=30"
+                        resposta = requests.get(url, timeout=10)
+                        dados_api = resposta.json()
+                        livros_api = dados_api.get("works", [])
+                        novos_api = []
+                        for livro in livros_api:
+                            titulo = livro.get("title", "")
+                            autores = livro.get("authors", [])
+                            autor = autores[0].get("name", "Autor desconhecido") if autores else "Autor desconhecido"
+                            if titulo.lower().strip() not in ja_lidos:
+                                novos_api.append(f"{titulo} — {autor}")
+                        if novos_api:
+                            st.markdown(f"**📚 Sugestões de {genero_rec} para você explorar:**")
+                            st.markdown("")
+                            for livro in novos_api[:10]:
+                                st.markdown(f"🌸 {livro}")
+                            st.markdown("")
+                            st.caption("Sugestões buscadas automaticamente — livros que ainda não estão na sua biblioteca!")
+                        else:
+                            st.info(f"🌸 Você já leu tudo que temos de **{genero_rec}**! Que leitora incrível!")
+                    except:
+                        st.info(f"🌸 Você já leu tudo que temos de **{genero_rec}**! Que leitora incrível!")
 
 else:
     st.markdown("""
