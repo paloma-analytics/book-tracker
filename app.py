@@ -160,6 +160,9 @@ def gerar_planilha_exemplo():
 {"Titulo":"Trono de Vidro","Mês":9,"Ano":2024,"Autor":"Sarah J. Mass","Genero":"Fantasia","Nota":5.0,"Modo de Leitura":"Livro Fisíco","Motivo de Leitura":"Lazer","Quantidade de Paginas":392,"Categoria":"Fantasia","tempo":"1 mês"},
 {"Titulo":"Um Defeito de Cor","Mês":0,"Ano":2026,"Autor":"Ana Maria Gonçalves","Genero":"Romance","Nota":None,"Modo de Leitura":"Não Lido","Motivo de Leitura":"Indicação","Quantidade de Paginas":952,"Categoria":"Literatura brasileira","tempo":None},
 {"Titulo":"Um Perfeito Cavalheiro","Mês":7,"Ano":2023,"Autor":"Julia Quinn","Genero":"Romance","Nota":10.0,"Modo de Leitura":"Kindle","Motivo de Leitura":"Hype","Quantidade de Paginas":320,"Categoria":"Romance","tempo":"5 dias"},
+{"Titulo":"A Intrusa","Mês":4,"Ano":2026,"Autor":"Freida McFadden","Genero":"Suspense","Nota":8.0,"Modo de Leitura":"Audiolivro","Motivo de Leitura":"Hype","Quantidade de Paginas":350,"Categoria":"Suspense/Thriller","tempo":"1 dia"},
+{"Titulo":"A Contadora","Mês":4,"Ano":2026,"Autor":"Freida McFadden","Genero":"Suspense","Nota":5.0,"Modo de Leitura":"Audiolivro","Motivo de Leitura":"Hype","Quantidade de Paginas":308,"Categoria":"Suspense/Thriller","tempo":"1 dia"},
+{"Titulo":"O Estrangeiro","Mês":4,"Ano":2026,"Autor": "Albert Camus","Genero":"Romance","Nota":9.0,"Modo de Leitura":"Livro Fisíco","Motivo de Leitura":"Curiosidade","Quantidade de Paginas":128,"Categoria":"Clássico","tempo":"1 semana"},
 {"Titulo":"Uma Vida Pequena","Mês":8,"Ano":2025,"Autor":"Hanya Yanagihara","Genero":"Romance","Nota":10.0,"Modo de Leitura":"Livro Fisíco","Motivo de Leitura":"Hype","Quantidade de Paginas":720,"Categoria":"Ficção contemporânea","tempo":"2 meses"},
 {"Titulo":"Vidas Secas","Mês":9,"Ano":2025,"Autor":"Graciliano Ramos","Genero":"Realismo","Nota":10.0,"Modo de Leitura":"Livro Fisíco/Kindle","Motivo de Leitura":"Indicação","Quantidade de Paginas":176,"Categoria":"Romance","tempo":"1 semana"}   
     ]
