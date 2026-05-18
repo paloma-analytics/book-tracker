@@ -164,6 +164,10 @@ def gerar_planilha_exemplo():
 {"Titulo":"A Contadora","Mês":4,"Ano":2026,"Autor":"Freida McFadden","Genero":"Suspense","Nota":5.0,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":308,"Categoria":"Suspense/Thriller","tempo":"1 dia"},
 {"Titulo":"O Estrangeiro","Mês":4,"Ano":2026,"Autor": "Albert Camus","Genero":"Romance","Nota":9.0,"Modo de Leitura":"Livro Fisíco","Motivo de Leitura":"Curiosidade","Quantidade de Paginas":128,"Categoria":"Clássico","tempo":"1 semana"},
 {"Titulo":"Uma Vida Pequena","Mês":8,"Ano":2025,"Autor":"Hanya Yanagihara","Genero":"Romance","Nota":10.0,"Modo de Leitura":"Livro Fisíco","Motivo de Leitura":"Hype","Quantidade de Paginas":720,"Categoria":"Ficção contemporânea","tempo":"2 meses"},
+{"Titulo":"A Cabeça do Santo","Mês":5,"Ano":2026,"Autor":"Socorro Acioli","Genero":"Romance","Nota":10.0,"Modo de Leitura":"Livro Fisíco","Motivo de Leitura":"Curiosidade","Quantidade de Paginas":176,"Categoria":"Realismo mágico","tempo":"5 dias"}, 
+{"Titulo":"O Acordo","Mês":5,"Ano":2026,"Autor":"Elle Kennedy","Genero":"Romance","Nota":7.0,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":360,"Categoria":"Romance","tempo":"5 dias"},
+{"Titulo":"O Erro","Mês":5,"Ano":2026,"Autor":"Elle Kennedy","Genero":"Romance","Nota":6.0,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":280,"Categoria":"Romance","tempo":"3 dias"},
+{"Titulo":"O Jogo","Mês":5,"Ano":2026,"Autor":"Elle Kennedy","Genero":"Romance","Nota":4.0,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":344,"Categoria":"Romance","tempo":"4 dias"},
 {"Titulo":"Vidas Secas","Mês":9,"Ano":2025,"Autor":"Graciliano Ramos","Genero":"Realismo","Nota":10.0,"Modo de Leitura":"Livro Fisíco/Kindle","Motivo de Leitura":"Indicação","Quantidade de Paginas":176,"Categoria":"Romance","tempo":"1 semana"}   
     ]
     df_exemplo = pd.DataFrame(dados_exemplo)
