@@ -175,7 +175,8 @@ def gerar_planilha_exemplo():
 {"Titulo":"A Impostora","Mês":6,"Ano":2026,"Autor":"R.F. Kuang","Genero":"Suspense","Nota":10,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Indicação","Quantidade de Paginas":352,"Categoria":"Suspense/Thriller","tempo":"5 dias"}, 
 {"Titulo":"Teoricamente Amor","Mês":8,"Ano":2026,"Autor":"Ali Hazelwood","Genero":"Romance","Nota":10,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":368,"Categoria":"Romance","tempo":"2 dias"},  
 {"Titulo":"Teoricamente Amor","Mês":8,"Ano":2026,"Autor":"Ali Hazelwood","Genero":"Romance","Nota":10,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":368,"Categoria":"Romance","tempo":"2 dias"},     
-{"Titulo":"Um Amor Problematico de Verão","Mês":8,"Ano":2026,"Autor":"Ali Hazelwood","Genero":"Romance","Nota":3,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":368,"Categoria":"Romance","tempo":"2 semanas"},        
+{"Titulo":"Um Amor Problematico de Verão","Mês":8,"Ano":2026,"Autor":"Ali Hazelwood","Genero":"Romance","Nota":3,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":368,"Categoria":"Romance","tempo":"2 semanas"},  
+ {"Titulo":"Verity","Mês":8,"Ano":2026,"Autor":"Colleen Hoover","Genero":"Suspense","Nota":10,"Modo de Leitura":"Audio Livro","Motivo de Leitura":"Hype","Quantidade de Paginas":320,"Categoria": "Suspense/Thriller","tempo":"2 dias"},              
 {"Titulo":"Vidas Secas","Mês":9,"Ano":2025,"Autor":"Graciliano Ramos","Genero":"Realismo","Nota":10.0,"Modo de Leitura":"Livro Fisíco/Kindle","Motivo de Leitura":"Indicação","Quantidade de Paginas":176,"Categoria":"Romance","tempo":"1 semana"}   
     ]
     df_exemplo = pd.DataFrame(dados_exemplo)
